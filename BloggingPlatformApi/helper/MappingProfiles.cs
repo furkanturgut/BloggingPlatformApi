@@ -9,6 +9,7 @@ namespace BloggingPlatformApi.helper
         public MappingProfiles() 
         {
             CreateMap<Category, CategoryDto>().ReverseMap();
+            CreateMap<Article, ArticleDto>().ReverseMap();
         }
     }
 }

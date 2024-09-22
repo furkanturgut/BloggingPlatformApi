@@ -3,6 +3,7 @@ using BloggingPlatformApi.Dto_s;
 using BloggingPlatformApi.Interface;
 using BloggingPlatformApi.Models;
 using Microsoft.AspNetCore.Mvc;
+using System;
 
 namespace BloggingPlatformApi.Controllers
 {
@@ -46,6 +47,26 @@ namespace BloggingPlatformApi.Controllers
                 return BadRequest(ModelState);
             }
             return Ok(category);
+        }
+
+        [HttpGet("article/{CategoryId}")]
+        [ProducesResponseType(200, Type = typeof(ArticleDto))]
+        [ProducesResponseType(400)]
+        public ActionResult GetArticleByCategory(int CategoryId)
+        {
+            if (!_categoryRepository.CategoryExist(CategoryId))
+            {
+                return NotFound();
+            }
+            var articles = _mapper.Map<ICollection<ArticleDto>>(_categoryRepository.GetArticleByCategory(CategoryId));
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+            return Ok(articles);
+
+
+
         }
 
     }

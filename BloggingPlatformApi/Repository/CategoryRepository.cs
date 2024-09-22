@@ -18,6 +18,12 @@ namespace BloggingPlatformApi.Repository
             return _dataContext.Categories.Any(c => c.Id == id);
         }
 
+        public ICollection<Article> GetArticleByCategory(int categoryId)
+        {
+            return _dataContext.Articles.Where(c => c.Category.Id == categoryId).OrderBy(c=> c.Id).ToList();
+            
+        }
+
         public ICollection<Category> GetCategories()
         {
             return _dataContext.Categories.OrderBy(p=> p.Id).ToList();
