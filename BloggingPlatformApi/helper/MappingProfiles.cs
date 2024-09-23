@@ -10,6 +10,8 @@ namespace BloggingPlatformApi.helper
         {
             CreateMap<Category, CategoryDto>().ReverseMap();
             CreateMap<Article, ArticleDto>().ReverseMap();
+            CreateMap<Writer,WriterDto>().ReverseMap();
+            CreateMap<Tag, TagDto>().ReverseMap();
         }
     }
 }

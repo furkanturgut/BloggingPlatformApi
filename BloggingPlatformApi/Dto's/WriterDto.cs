@@ -1,8 +1,6 @@
-﻿using BloggingPlatformApi.Models;
-
-namespace BloggingPlatformApi.Dto_s
+﻿namespace BloggingPlatformApi.Dto_s
 {
-    public class ArticleDto
+    public class WriterDto
     {
         public int Id { get; set; }
         public string Title { get; set; }

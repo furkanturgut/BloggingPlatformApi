@@ -13,7 +13,7 @@ namespace BloggingPlatformApi.Repository
         {
             this._dataContext = dataContext;
         }
-        public bool CategoryExist(int ArticleId)
+        public bool ArticleExist(int ArticleId)
         {
             return _dataContext.Articles.Any(a=> a.Id == ArticleId);
         }
@@ -23,19 +23,20 @@ namespace BloggingPlatformApi.Repository
             return _dataContext.Articles.FirstOrDefault(a => a.Id == ArticleId);
         }
 
-        public Category GetArticleCategory(int ArticleId)
-        {
-            return _dataContext.Articles.Where(a => a.Id == ArticleId).Select(a => a.Category).FirstOrDefault();
-        }
 
         public ICollection<Article> GetArticles()
         {
             return _dataContext.Articles.OrderBy(a => a.Id).ToList();
         }
 
-        public Writer GetArticleWriter(int ArticleId)
+        public ICollection<Tag> GetArticleTags(int ArticleId)
         {
-            return _dataContext.Articles.Where(a => a.Id == ArticleId).Select(a => a.Writer).FirstOrDefault();
+           return _dataContext.ArticleTags.Where(at => at.ArticleId == ArticleId).Select(a=> a.Tag).ToList();
         }
+
+        
+
+        
+
     }
 }

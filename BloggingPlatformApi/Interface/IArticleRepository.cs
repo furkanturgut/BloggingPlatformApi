@@ -6,9 +6,7 @@ namespace BloggingPlatformApi.Interface
     {
         ICollection<Article> GetArticles();
         Article GetArticle(int ArticleId);
-        Category GetArticleCategory (int ArticleId);
-        Writer GetArticleWriter (int ArticleId);
-
-        bool CategoryExist (int ArticleId);
+        ICollection<Tag> GetArticleTags (int ArticleId);
+        bool ArticleExist (int ArticleId);
     }
 }
