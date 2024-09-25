@@ -1,13 +1,15 @@
 ﻿using AutoMapper;
 using BloggingPlatformApi.Dto_s;
 using BloggingPlatformApi.Interface;
+using BloggingPlatformApi.Models;
+using BloggingPlatformApi.Repository;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BloggingPlatformApi.Controllers
 {
     [ApiController]
     [Route("api/[Controller]")]
-    public class TagController : Controller 
+    public class TagController : Controller
     {
         private readonly IMapper _mapper;
         private readonly ITagRepository _repository;
@@ -64,6 +66,34 @@ namespace BloggingPlatformApi.Controllers
                 return BadRequest(ModelState);
             }
             return Ok(articles);
+        }
+
+        [HttpPost]
+        [ProducesResponseType(204)]
+        [ProducesResponseType(400)]
+        public IActionResult CreateTag(int ArticleId, [FromBody] TagDto tag)
+        {
+            if (tag == null)
+            {
+                return BadRequest(ModelState);
+            }
+            var tags = _repository.GetTags().FirstOrDefault(t => t.Name.Trim().ToUpper() == tag.Name.Trim().ToUpper());
+            if (tags != null)
+            {
+                ModelState.AddModelError("", "Tag Already Exist");
+                return StatusCode(422, ModelState);
+            }
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+            var TagMap = _mapper.Map<Tag>(tag);
+            if (!_repository.CreateTag(ArticleId, TagMap))
+            {
+                ModelState.AddModelError("", "Something went wrong while saving");
+                return StatusCode(500, ModelState);
+            }
+            return Ok("Succesfuly Created");
         }
     }
 }

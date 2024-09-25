@@ -13,6 +13,22 @@ namespace BloggingPlatformApi.Repository
             this._context = context;
         }
 
+        public bool CreateTag(int ArticleId, Tag tag)
+        {
+            var article = _context.Articles.FirstOrDefault(a => a.Id == ArticleId);
+            if (article != null)
+            {
+                var ArticleTags = new ArticleTag()
+                {
+                    Article = article,
+                    Tag = tag
+                };
+                _context.Add(ArticleTags);
+            }
+            _context.Add(tag);
+            return Save();
+        }
+
         public ICollection<Article> GetArticleByTag(int TagId)
         {
             return _context.ArticleTags.Where(t=> t.TagId == TagId).Select(t=>t.Article).ToList();
@@ -26,6 +42,12 @@ namespace BloggingPlatformApi.Repository
         public ICollection<Tag> GetTags()
         {
             return _context.Tags.ToList();
+        }
+
+        public bool Save()
+        {
+            var saved = _context.SaveChanges();
+            return saved > 0 ? true : false;
         }
 
         public bool TagExist(int TagId)
