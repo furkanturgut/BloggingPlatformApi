@@ -40,6 +40,16 @@ namespace BloggingPlatformApi.Repository
             return _dataContext.Categories.Where(p => p.Id == id).FirstOrDefault();
         }
 
+        public bool CreateCategory(Category category)
+        {
+            _dataContext.Add(category);
+            return Save();
+        }
 
+        public bool Save()
+        {
+            var saved = _dataContext.SaveChanges();
+            return saved > 0 ? true : false;
+        }
     }
 }

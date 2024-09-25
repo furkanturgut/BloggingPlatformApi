@@ -8,6 +8,8 @@ namespace BloggingPlatformApi.Interface
         ICollection<Article> GetArticleByCategory (int categoryId);
         Category GetArticleCategory(int ArticleId);
         Category GetCategory(int id);
+        bool CreateCategory (Category category);
+        bool Save();
         bool CategoryExist(int id);
     }
 }

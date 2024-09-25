@@ -81,5 +81,33 @@ namespace BloggingPlatformApi.Controllers
             }
             return Ok(category);
         }
+
+        [HttpPost]
+        [ProducesResponseType(204)]
+        [ProducesResponseType(400)]
+        public IActionResult CreateCategory(CategoryDto category)
+        {
+            if (category == null)
+            {
+                return BadRequest(ModelState);
+            }
+            var categories = _categoryRepository.GetCategories().FirstOrDefault(c => c.Name.Trim().ToUpper() == category.Name.Trim().ToUpper());
+            if (categories != null)
+            {
+                ModelState.AddModelError("", "Category Alreadt Exist");
+                return StatusCode(422, ModelState);
+            }
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+            var CategoryMap = _mapper.Map<Category>(category);
+            if (!_categoryRepository.CreateCategory(CategoryMap))
+            {
+                ModelState.AddModelError("", "Something went wrong while saving");
+                return StatusCode(500, ModelState);
+            }
+            return Ok("Succesfuly Created");
+        }
     }
 }
