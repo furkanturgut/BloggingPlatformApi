@@ -37,5 +37,17 @@ namespace BloggingPlatformApi.Repository
         {
             return _context.Writers.OrderBy(w => w.Id).ToList();
         }
+
+        public bool CreateWriter(Writer writer)
+        {
+            _context.Add(writer);
+            return Save();
+        }
+
+        public bool Save()
+        {
+            var saved = _context.SaveChanges();
+            return saved > 0 ? true : false;
+        }
     }
 }
