@@ -29,9 +29,17 @@ namespace BloggingPlatformApi.Repository
             return _dataContext.Categories.OrderBy(p=> p.Id).ToList();
         }
 
+        public Category GetArticleCategory(int ArticleId)
+        {
+            return _dataContext.Articles.Where(a => a.Id == ArticleId).Select(c => c.Category).FirstOrDefault();
+
+        }
+
         public Category GetCategory(int id)
         {
             return _dataContext.Categories.Where(p => p.Id == id).FirstOrDefault();
         }
+
+
     }
 }

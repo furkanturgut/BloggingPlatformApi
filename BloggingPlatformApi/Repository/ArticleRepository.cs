@@ -2,6 +2,7 @@
 using BloggingPlatformApi.Data;
 using BloggingPlatformApi.Interface;
 using BloggingPlatformApi.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace BloggingPlatformApi.Repository
 {
@@ -34,9 +35,13 @@ namespace BloggingPlatformApi.Repository
            return _dataContext.ArticleTags.Where(at => at.ArticleId == ArticleId).Select(a=> a.Tag).ToList();
         }
 
-        
+    
 
-        
+        public Writer GetArticleWriter(int ArticleId)
+        {
+            return _dataContext.Articles.Where(a=> a.Id == ArticleId).Select(w => w.Writer).FirstOrDefault();
+        }
 
+      
     }
 }

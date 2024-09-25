@@ -6,6 +6,7 @@ namespace BloggingPlatformApi.Interface
     {
         ICollection<Category> GetCategories();
         ICollection<Article> GetArticleByCategory (int categoryId);
+        Category GetArticleCategory(int ArticleId);
         Category GetCategory(int id);
         bool CategoryExist(int id);
     }

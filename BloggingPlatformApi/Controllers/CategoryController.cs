@@ -69,5 +69,17 @@ namespace BloggingPlatformApi.Controllers
 
         }
 
+
+        [HttpGet("category/{ArticleId}")]
+        [ProducesResponseType(200, Type = typeof(CategoryDto))]
+        public ActionResult GetArticleCategory(int ArticleId)
+        {
+            var category = _mapper.Map<CategoryDto>(_categoryRepository.GetArticleCategory(ArticleId));
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+            return Ok(category);
+        }
     }
 }

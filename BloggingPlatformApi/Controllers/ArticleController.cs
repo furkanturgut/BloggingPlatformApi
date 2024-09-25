@@ -23,13 +23,14 @@ namespace BloggingPlatformApi.Controllers
 
         public IActionResult GetArticles()
         {
-            var categories = _mapper.Map<ICollection<ArticleDto>>(_repository.GetArticles());
+            var articles = _mapper.Map<ICollection<ArticleDto>>(_repository.GetArticles());
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
-            return Ok(categories);
+            return Ok(articles);
         }
+
         [HttpGet("{ArticleId}")]
         [ProducesResponseType(200, Type = typeof(ArticleDto))]
         [ProducesResponseType(400)]
@@ -64,5 +65,7 @@ namespace BloggingPlatformApi.Controllers
             }
             return Ok(tags);
         }
+        
+
     }
 }
