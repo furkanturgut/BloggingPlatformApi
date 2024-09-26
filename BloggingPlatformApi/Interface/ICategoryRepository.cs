@@ -9,6 +9,7 @@ namespace BloggingPlatformApi.Interface
         Category GetArticleCategory(int ArticleId);
         Category GetCategory(int id);
         bool CreateCategory (Category category);
+        bool UpdateCategory (Category category);
         bool Save();
         bool CategoryExist(int id);
     }

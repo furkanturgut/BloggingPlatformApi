@@ -109,5 +109,23 @@ namespace BloggingPlatformApi.Controllers
             }
             return Ok("Succesfuly Created");
         }
+
+        [HttpPut]
+        [ProducesResponseType(204)]
+        [ProducesResponseType(400)]
+        public IActionResult UpdateCategory(CategoryDto category)
+        {
+            if (category == null)
+            {
+                return BadRequest(ModelState);
+            }
+            var UpdatedCategory = _mapper.Map<Category>(category);
+            if (!_categoryRepository.UpdateCategory(UpdatedCategory))
+            {
+                ModelState.AddModelError("", "Something went wrong");
+                return StatusCode(500, ModelState);
+            }
+            return NoContent();
+        }
     }
 }
