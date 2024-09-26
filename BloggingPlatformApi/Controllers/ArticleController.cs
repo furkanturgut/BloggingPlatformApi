@@ -2,6 +2,7 @@
 using BloggingPlatformApi.Dto_s;
 using BloggingPlatformApi.Interface;
 using BloggingPlatformApi.Models;
+using BloggingPlatformApi.Repository;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BloggingPlatformApi.Controllers
@@ -99,6 +100,25 @@ namespace BloggingPlatformApi.Controllers
                 return StatusCode(500, ModelState);
             }
             return Ok("Succesfuly Created");
+        }
+
+        [HttpPut]
+        [ProducesResponseType(204)]
+        [ProducesResponseType(400)]
+        [ProducesResponseType(404)]
+        public IActionResult UpdateArticle(ArticleDto article)
+        {
+            if (article == null)
+            {
+                return BadRequest(ModelState);
+            }
+            var UpdatedArticle= _mapper.Map<Article>(article);
+            if (!_repository.UpdateArticle(UpdatedArticle))
+            {
+                ModelState.AddModelError("", "Something went wrong");
+                return StatusCode(500, ModelState);
+            }
+            return NoContent();
         }
 
 
