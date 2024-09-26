@@ -2,6 +2,7 @@
 using BloggingPlatformApi.Dto_s;
 using BloggingPlatformApi.Interface;
 using BloggingPlatformApi.Models;
+using BloggingPlatformApi.Repository;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BloggingPlatformApi.Controllers
@@ -103,6 +104,25 @@ namespace BloggingPlatformApi.Controllers
                 return StatusCode(500, ModelState);
             }
             return Ok("Succesfuly Saved");
+        }
+
+        [HttpPut]
+        [ProducesResponseType(204)]
+        [ProducesResponseType(400)]
+        [ProducesResponseType(404)]
+        public IActionResult UpdateWriter(WriterDto writer)
+        {
+            if (writer == null)
+            {
+                return BadRequest(ModelState);
+            }
+            var UpdatedWriter = _mapper.Map<Writer>(writer);
+            if (!_repository.UpdateWriter(UpdatedWriter))
+            {
+                ModelState.AddModelError("", "Something went wrong");
+                return StatusCode(500, ModelState);
+            }
+            return NoContent();
         }
     }
 }

@@ -9,6 +9,7 @@ namespace BloggingPlatformApi.Interface
         ICollection<Article> GetArticleByWriter (int WriterId);
         Writer GetArticleWriter(int ArticleId); 
         bool CreateWriter (Writer writer);
+        bool UpdateWriter (Writer writer);
         bool Save();
         bool WriterExists(int WriterId);    
     }

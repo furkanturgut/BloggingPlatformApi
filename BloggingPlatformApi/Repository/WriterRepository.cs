@@ -49,5 +49,11 @@ namespace BloggingPlatformApi.Repository
             var saved = _context.SaveChanges();
             return saved > 0 ? true : false;
         }
+
+        public bool UpdateWriter(Writer writer)
+        {
+            _context.Update(writer);
+            return Save();
+        }
     }
 }

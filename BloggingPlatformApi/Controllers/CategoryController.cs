@@ -113,6 +113,7 @@ namespace BloggingPlatformApi.Controllers
         [HttpPut]
         [ProducesResponseType(204)]
         [ProducesResponseType(400)]
+        [ProducesResponseType(404)]
         public IActionResult UpdateCategory(CategoryDto category)
         {
             if (category == null)
