@@ -124,5 +124,29 @@ namespace BloggingPlatformApi.Controllers
             }
             return NoContent();
         }
+
+
+        [HttpDelete("{WriterId}")]
+        [ProducesResponseType(400)]
+        [ProducesResponseType(204)]
+        [ProducesResponseType(404)]
+        public IActionResult DeleteWriter(int WriterId)
+        {
+            if (!_repository.WriterExists(WriterId))
+            {
+                return NotFound();
+            }
+            var writer = _repository.GetWriter(WriterId);
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+            if (!_repository.DeleteWriter(writer))
+            {
+                ModelState.AddModelError("", "Something went wrong");
+                return StatusCode(500, ModelState);
+            }
+            return NoContent();
+        }
     }
 }

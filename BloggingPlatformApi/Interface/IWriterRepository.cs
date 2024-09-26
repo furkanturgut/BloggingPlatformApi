@@ -10,6 +10,7 @@ namespace BloggingPlatformApi.Interface
         Writer GetArticleWriter(int ArticleId); 
         bool CreateWriter (Writer writer);
         bool UpdateWriter (Writer writer);
+        bool DeleteWriter (Writer writer);
         bool Save();
         bool WriterExists(int WriterId);    
     }

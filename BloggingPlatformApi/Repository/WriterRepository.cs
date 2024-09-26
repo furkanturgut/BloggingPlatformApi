@@ -55,5 +55,11 @@ namespace BloggingPlatformApi.Repository
             _context.Update(writer);
             return Save();
         }
+
+        public bool DeleteWriter(Writer writer)
+        {
+            _context.Remove(writer);
+            return Save();
+        }
     }
 }
