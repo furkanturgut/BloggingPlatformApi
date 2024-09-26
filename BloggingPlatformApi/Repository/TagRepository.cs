@@ -54,5 +54,11 @@ namespace BloggingPlatformApi.Repository
         {
             return _context.Tags.Any(t => t.Id == TagId);
         }
+
+        public bool UpdateTag(Tag tag)
+        {
+            _context.Update(tag);
+            return Save();
+        }
     }
 }

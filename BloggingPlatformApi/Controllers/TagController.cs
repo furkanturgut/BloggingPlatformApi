@@ -95,5 +95,24 @@ namespace BloggingPlatformApi.Controllers
             }
             return Ok("Succesfuly Created");
         }
+
+        [HttpPut]
+        [ProducesResponseType(204)]
+        [ProducesResponseType(400)]
+        [ProducesResponseType(404)]
+        public IActionResult UpdateTag(TagDto tag)
+        {
+            if (tag == null)
+            {
+                return BadRequest(ModelState);
+            }
+            var UpdatedTag= _mapper.Map<Tag>(tag);
+            if (!_repository.UpdateTag(UpdatedTag))
+            {
+                ModelState.AddModelError("", "Something went wrong");
+                return StatusCode(500, ModelState);
+            }
+            return NoContent();
+        }
     }
 }
