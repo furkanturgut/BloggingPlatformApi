@@ -57,5 +57,11 @@ namespace BloggingPlatformApi.Repository
             _dataContext.Update(category);
             return Save();
         }
+
+        public bool DeleteCategory(Category category)
+        {
+            _dataContext.Remove(category);
+            return Save();
+        }
     }
 }
