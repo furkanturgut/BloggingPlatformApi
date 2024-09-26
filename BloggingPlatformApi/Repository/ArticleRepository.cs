@@ -19,6 +19,12 @@ namespace BloggingPlatformApi.Repository
             return _dataContext.Articles.Any(a=> a.Id == ArticleId);
         }
 
+        public bool CreateArticle(Article article)
+        {
+            _dataContext.Add(article);
+            return Save();
+        }
+
         public Article GetArticle(int ArticleId)
         {
             return _dataContext.Articles.FirstOrDefault(a => a.Id == ArticleId);
@@ -42,6 +48,10 @@ namespace BloggingPlatformApi.Repository
             return _dataContext.Articles.Where(a=> a.Id == ArticleId).Select(w => w.Writer).FirstOrDefault();
         }
 
-      
+        public bool Save()
+        {
+            var saved = _dataContext.SaveChanges();
+            return saved > 0 ? true: false;
+        }
     }
 }

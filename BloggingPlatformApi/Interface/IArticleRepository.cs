@@ -8,6 +8,8 @@ namespace BloggingPlatformApi.Interface
         Article GetArticle(int ArticleId);
         ICollection<Tag> GetArticleTags (int ArticleId);
         Writer GetArticleWriter (int ArticleId);
+        bool CreateArticle (Article article);
+        bool Save();
         bool ArticleExist (int ArticleId);
     }
 }
