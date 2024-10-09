@@ -138,11 +138,12 @@ namespace BloggingPlatformApi.Controllers
                 return BadRequest(ModelState);
             }
 
-            if (!_repository.DeleteArticleTags(ArticleId))
+            if (!_repository.DeleteArticle(article))
             {
-                ModelState.AddModelError("", "Something went wrong while removing ArticleTags");
+                ModelState.AddModelError("", "Something went wrong while removing Article");
                 return StatusCode(500, ModelState);
             }
+       
             return NoContent();
         }
 
