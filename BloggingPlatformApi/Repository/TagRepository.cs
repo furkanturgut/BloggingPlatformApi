@@ -29,6 +29,12 @@ namespace BloggingPlatformApi.Repository
             return Save();
         }
 
+        public bool DeleteTag(Tag tag)
+        {
+            _context.Remove(tag);
+            return Save();
+        }
+
         public ICollection<Article> GetArticleByTag(int TagId)
         {
             return _context.ArticleTags.Where(t=> t.TagId == TagId).Select(t=>t.Article).ToList();

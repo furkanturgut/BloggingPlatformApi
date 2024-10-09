@@ -114,5 +114,29 @@ namespace BloggingPlatformApi.Controllers
             }
             return NoContent();
         }
+
+
+        [HttpDelete("{TagId}")]
+        [ProducesResponseType(400)]
+        [ProducesResponseType(204)]
+        [ProducesResponseType(404)]
+        public IActionResult DeleteTag(int TagId)
+        {
+            if (!_repository.TagExist(TagId))
+            {
+                return NotFound();
+            }
+            var tag = _repository.GetTag(TagId);
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+            if (!_repository.DeleteTag(tag))
+            {
+                ModelState.AddModelError("", "Something went wrong");
+                return StatusCode(500, ModelState);
+            }
+            return NoContent();
+        }
     }
 }

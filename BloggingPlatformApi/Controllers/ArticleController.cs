@@ -122,5 +122,32 @@ namespace BloggingPlatformApi.Controllers
         }
 
 
+        [HttpDelete("{ArticleId}")]
+        [ProducesResponseType(400)]
+        [ProducesResponseType(204)]
+        [ProducesResponseType(404)]
+        public IActionResult DeleteCategory(int ArticleId)
+        {
+            if (!_repository.ArticleExist(ArticleId))
+            {
+                return NotFound();
+            }
+            var article = _repository.GetArticle(ArticleId);
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            if (!_repository.DeleteArticleTags(ArticleId))
+            {
+                ModelState.AddModelError("", "Something went wrong while removing ArticleTags");
+                return StatusCode(500, ModelState);
+            }
+            return NoContent();
+        }
+
+
+
+
     }
 }

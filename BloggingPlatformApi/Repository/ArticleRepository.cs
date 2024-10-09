@@ -25,6 +25,11 @@ namespace BloggingPlatformApi.Repository
             return Save();
         }
 
+        public bool DeleteArticle(Article article)
+        {
+            _dataContext.Remove(article);
+            return Save();
+        }
         public Article GetArticle(int ArticleId)
         {
             return _dataContext.Articles.FirstOrDefault(a => a.Id == ArticleId);

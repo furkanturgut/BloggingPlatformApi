@@ -9,6 +9,7 @@ namespace BloggingPlatformApi.Interface
         bool TagExist (int TagId);
         bool CreateTag (int ArticleId ,Tag tag);
         bool UpdateTag (Tag tag);
+        bool DeleteTag (Tag tag);
         bool Save();
         ICollection<Article> GetArticleByTag(int TagId);
     }

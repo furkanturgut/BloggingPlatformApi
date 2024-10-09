@@ -11,6 +11,7 @@ namespace BloggingPlatformApi.Interface
         bool CreateArticle (Article article);
         bool UpdateArticle (Article article);
         bool Save();
+        bool DeleteArticle (Article article);
         bool ArticleExist (int ArticleId);
     }
 }
